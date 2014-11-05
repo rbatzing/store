@@ -33,7 +33,7 @@ int newProd()
         printf("Scan barcode:")
         scanf("%s", x.code);
         printf("Enter price");
-        scanf("%f",x.price);
+        scanf("%f",&x.price);
     fp =fopen("sample.dat","a");
     fprintf(fp,"%s %f", x.code,x.price )
 	return(x.code);
