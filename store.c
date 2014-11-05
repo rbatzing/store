@@ -1,25 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct product
+{
+	char code[15];
+	float price;
+} Product;
+
+Product p[20];
+
+int numProd = 0;
+
+
+int readProd()
+{
+   FILE * fp;
+	numProd = 0;
+    fp = fopen ("sample.dat", "r");
+    while (!feof(fp))
+    {
+       fscanf(fp, "%s %f", p[numProd].code, &p[numProd].price);
+      numProd++;
+    }
+   fclose(fp);
+
+   return(numProd);
+}
+
 
 int main()
 {
-   char str1[10], str2[10], str3[10];
-   int year;
-   FILE * fp;
+	int i;
 
-   fp = fopen ("file.txt", "w+");
-   fputs("We are in 2012", fp);
-   
-   rewind(fp);
-   fscanf(fp, "%s %s %s %d", str1, str2, str3, &year);
-   
-   printf("Read String1 |%s|\n", str1 );
-   printf("Read String2 |%s|\n", str2 );
-   printf("Read String3 |%s|\n", str3 );
-   printf("Read Integer |%d|\n", year );
+	numProd = readProd();
 
-   fclose(fp);
+   printf("Num of Products: %d\n", numProd);
    
+
+   for(i = 0; i < numProd; i++)
+	    printf("Product: %2d Code:%13s Price: %8.2f\n", i,    p[i].code, p[i].price);
+
    return(0);
 }
