@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "store.h"
 
-typedef struct product
-{
-	char code[15];
-	float price;
-} Product;
+
 
 Product p[20];
 
@@ -14,13 +11,14 @@ int numProd = 0;
 
 int readProd()
 {
-   FILE * fp;
-   numProd = 0;
+	FILE * fp;
+	numProd = 0;
     fp = fopen ("sample.dat", "r");
     while (!feof(fp))
     {
-       fscanf(fp, "%s %f", p[numProd].code, &p[numProd].price);
-	   if (strlen(p[numProd].code) > 1)
+		fscanf(fp, "%s;%s;%f", p[numProd].code,
+			p[numProd].desc,&p[numProd].price);
+		if (strlen(p[numProd].code) > 1)
 		   numProd++;
     }
    fclose(fp);
@@ -34,6 +32,8 @@ int addProd()
    
     printf("Scan barcode:");
     scanf("%s", x.code);
+	printf("Enter description:");
+    scanf("%f",x.desc);
     printf("Enter price");
     scanf("%f",&x.price);
     fp = fopen("sample.dat","a");
