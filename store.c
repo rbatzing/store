@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct product
 {
@@ -19,7 +20,8 @@ int readProd()
     while (!feof(fp))
     {
        fscanf(fp, "%s %f", p[numProd].code, &p[numProd].price);
-      numProd++;
+	   if (strlen(p[numProd].code) > 1)
+		   numProd++;
     }
    fclose(fp);
 
@@ -27,16 +29,17 @@ int readProd()
 }
 
 int newProd()
-{  Product x
+{  Product x;
     FILE * fp;
    
-        printf("Scan barcode:")
+        printf("Scan barcode:");
         scanf("%s", x.code);
         printf("Enter price");
         scanf("%f",&x.price);
     fp =fopen("sample.dat","a");
-    fprintf(fp,"%s %f", x.code,x.price )
-	return(x.code);
+    fprintf(fp,"%s %.2f\n", x.code,x.price );
+	fclose(fp);
+	return(1);
 }
 
 int checkout()
