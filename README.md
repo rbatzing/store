@@ -8,8 +8,9 @@ A mini store application
 
 This program has 2 modes:
 
-* Read the bar code of new products and assign prices
-* read the bar codes of products and calculate the bill
+* "newProd()" Read the bar code of new products and assign prices
+* "readProd()" Read in the full dataset of products from a file
+* "checkout()" Read the bar codes of products and calculate the bill
 
 Requires:
 ---------
