@@ -1,10 +1,16 @@
 store
 =====
 
+! Description
+
 A mini store application
 
 This program has 2 modes:
-1) Read the bar code of new products and assign prices
-2) read the bar codes of products and calculate the bill
 
+# Read the bar code of new products and assign prices
+# read the bar codes of products and calculate the bill
+
+! Requires:
+
+* sample.dat : a text file with the data Barcode and price
 
