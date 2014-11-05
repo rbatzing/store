@@ -14,7 +14,7 @@ int numProd = 0;
 int readProd()
 {
    FILE * fp;
-	numProd = 0;
+   numProd = 0;
     fp = fopen ("sample.dat", "r");
     while (!feof(fp))
     {
@@ -27,8 +27,16 @@ int readProd()
 }
 
 int newProd()
-{
-	return(1);
+{  Product x
+    FILE * fp;
+   
+        printf("Scan barcode:")
+        scanf("%s", x.code);
+        printf("Enter price");
+        scanf("%f",x.price);
+    fp =fopen("sample.dat","a");
+    fprintf(fp,"%s %f", x.code,x.price )
+	return(x.code);
 }
 
 int checkout()
@@ -39,9 +47,12 @@ int checkout()
 int main()
 {
 	int i;
+	
+	newProd();
 
 	numProd = readProd();
 
+   
    printf("Num of Products: %d\n", numProd);
    
 
