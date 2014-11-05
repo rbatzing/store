@@ -6,7 +6,7 @@ Description:
 
 A mini store application
 
-This program has 2 modes:
+This program has 3 functions:
 
 * **newProd()** Read the bar code of new products and assign prices
 * **readProd()** Read in the full dataset of products from a file
