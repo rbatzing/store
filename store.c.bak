@@ -11,6 +11,7 @@ Product p[20];
 
 int numProd = 0;
 
+
 int readProd()
 {
    FILE * fp;
@@ -26,15 +27,6 @@ int readProd()
    return(numProd);
 }
 
-int newProd()
-{
-	return(1);
-}
-
-int checkout()
-{
-
-}
 
 int main()
 {
