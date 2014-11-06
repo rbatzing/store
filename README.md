@@ -6,14 +6,25 @@ Description:
 
 A mini store application
 
-This program has 3 functions:
+This program has these functions:
 
-* **newProd()** Read the bar code of new products and assign prices
-* **readProd()** Read in the full dataset of products from a file
-* **checkout()** Read the bar codes of products and calculate the bill
+* **readProd()** Read in the products in the inventory from a file
+* **checkout()** Select products for sale and create the bill
+* **editProd()** Edit the inventory list
+** **updateProd()** Update the description and prices of a product
+** **deleteProd()** Remove a product
+** **addProd()** Add a new product and assign prices
+
+h2. Test
 
 Requires:
 ---------
 
-* **sample.dat** : a text file with the data Barcode and price
+* **sample.dat** : a text file with the data Barcode and product info
 
+pre.
+8851959132012 Coke @ 10.00
+8858998581139 Pepsi @ 12.00
+8854698005289 Okban Tea @ 20.00
+9781598632163 Power of Ruby @ 1049.00
+pre.
