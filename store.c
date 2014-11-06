@@ -12,12 +12,28 @@ int numProd = 0;
 int readProd()
 {
 	FILE * fp;
+	char buffer[20];
+	
 	numProd = 0;
     fp = fopen ("sample.dat", "r");
     while (!feof(fp))
     {
-		fscanf(fp, "%s;%s;%f", p[numProd].code,
-			p[numProd].desc,&p[numProd].price);
+		fscanf(fp, "%s", p[numProd].code);
+		
+		do
+		{
+			fscanf(fp, "%s", buffer);
+			
+			if ((strlen(buffer) != 1) && ( buffer[0] != '@'))
+			{
+				strcat(p[numProd].desc, buffer);
+				strcat(p[numProd].desc, " ");
+			}
+			
+		} while ((strlen(buffer) != 1) || ( buffer[0] != '@'));
+			
+		fscanf(fp, "%f", &p[numProd].price);
+			
 		if (strlen(p[numProd].code) > 1)
 		   numProd++;
     }
@@ -26,19 +42,30 @@ int readProd()
    return(numProd);
 }
 
+int writeProd()
+{
+    FILE * fp;
+	int i;
+	
+	rename("sample.dat","sample.bak");
+	
+    fp = fopen("sample.dat","a");
+	for (i=0; i < numProd; i++)
+		fprintf(fp,"%s %s @ %.2f\n",p[i].code, p[i].desc, p[i].price );
+	fclose(fp);
+    return(-1);
+}
+
 int addProd()
 {  Product x;
-    FILE * fp;
    
     printf("Scan barcode:");
     scanf("%s", x.code);
 	printf("Enter description:");
-    scanf("%f",x.desc);
-    printf("Enter price");
+    scanf("%s",x.desc);
+    printf("Enter price:");
     scanf("%f",&x.price);
-    fp = fopen("sample.dat","a");
-    fprintf(fp,"%s %.2f\n", x.code,x.price );
-	fclose(fp);
+	getchar();
 	return(1);
 }
 
@@ -47,15 +74,8 @@ int checkout()
    return(1);
 }
 
-int updateProd()
-{
-   return(1);
-}
-int deleteProd()
-{
-   return(1);
-}
-int main()
+
+int editProd()
 {
 	int i;
 	char c;
@@ -63,38 +83,95 @@ int main()
 	numProd = readProd();
 	do 
 	{
-	   printf("Mini Store System Menu:\n");
-	   printf("\t[A]dd\n\t[D]elete\n\t[U]pdate\n");
-	   printf("\t[S]how\n\t[C]heckout\n\t[Q]uit\n");
-	   printf("Please Choose:");
+	   printf("Product Menu: [A]dd [D]elete [U]pdate [Q]uit (Please Choose):");
 	   
 	   c = getchar();
 	   switch(c)
 	   {
 	   case 'A':
-	   case 'a':
-	   	addProd(); break;
+	   case 'a': getchar(); addProd(); break;
 		
 	   case 'D':
-	     deleteProd(); break;
+	   case 'd': getchar(); deleteProd(); break;
 	     
 	   case 'U':
-	      updateProd(); break;
+	   case 'u': getchar(); updateProd(); break;
 		  
+	   case 'Q':
+	   case 'q': getchar();
+	   case '\n': break;
+	   
+	   }
+    } while ((c != 'Q') && (c != 'q'));
+
+   return(1);
+}
+
+int updateProd()
+{
+   return(1);
+}
+
+int deleteProd()
+{
+   return(1);
+}
+
+int searchProd()
+{
+   return(1);
+}
+
+int displayProd()
+{
+	int i;
+    char line[] = "================================================";
+	
+	printf("\nNum of Products: %d\n\n", numProd);
+	puts("Num  Product code       Description       Price");
+	puts(line);
+    for(i = 0; i < numProd; i++)
+	    printf("%3d %13s %-20s %8.2f\n", 
+			i, p[i].code,p[i].desc,p[i].price);
+	puts(line);
+	puts("");
+	return(1);
+}
+			
+int main()
+{
+	int i;
+	char c;
+	
+	puts("\nWelcome to the PYU CS110 MiniStore\n");
+	
+	numProd = readProd();
+	do 
+	{
+	   printf("Store Menu: [A]dmin [D]isplay [S]earch [C]heckout [Q]uit (Please Choose):");
+	   
+	   c = getchar();
+	   switch(c)
+	   {
+	   case 'A':
+	   case 'a': getchar(); editProd(); break;
+		
+	   case 'D':
+	   case 'd': getchar(); displayProd(); break;
+	     
+       case 'S':
+		case 's': getchar(); searchProd(); break;
+			
 	   case 'C':
-		  checkout(); break;
+	   case 'c': getchar(); checkout(); break;
+	   
+	   case 'Q':
+	   case 'q': getchar();
+	   case '\n': break;
 	   }
     } while ((c != 'Q') && (c != 'q'));
 
     printf("Good-bye\n");
-
-  
-   printf("Num of Products: %d\n", numProd);
-   
-
-   for(i = 0; i < numProd; i++)
-	    printf("Product: %2d Code:%13s Price: %8.2f\n", i, p[i].code,
-			p[i].price);
 
    return(0);
 }
