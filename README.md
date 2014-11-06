@@ -21,6 +21,10 @@ Requires:
 * **sample.dat** : a text file with the data Barcode and product info
 
     8851959132012 Coke @ 10.00
+    
     8858998581139 Pepsi @ 12.00
+    
     8854698005289 Okban Tea @ 20.00
+    
     9781598632163 Power of Ruby @ 1049.00
+    
