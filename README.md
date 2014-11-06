@@ -15,16 +15,12 @@ This program has these functions:
 ** **deleteProd()** Remove a product
 ** **addProd()** Add a new product and assign prices
 
-h2. Test
-
 Requires:
 ---------
 
 * **sample.dat** : a text file with the data Barcode and product info
 
-pre.
-8851959132012 Coke @ 10.00
-8858998581139 Pepsi @ 12.00
-8854698005289 Okban Tea @ 20.00
-9781598632163 Power of Ruby @ 1049.00
-pre.
+    8851959132012 Coke @ 10.00
+    8858998581139 Pepsi @ 12.00
+    8854698005289 Okban Tea @ 20.00
+    9781598632163 Power of Ruby @ 1049.00
