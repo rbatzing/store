@@ -11,9 +11,9 @@ This program has these functions:
 * **readProd()** Read in the products in the inventory from a file
 * **checkout()** Select products for sale and create the bill
 * **editProd()** Edit the inventory list
-* **updateProd()** Update the description and prices of a product
-* **deleteProd()** Remove a product
-* **addProd()** Add a new product and assign prices
+     **updateProd()** Update the description and prices of a product
+     **deleteProd()** Remove a product
+     **addProd()** Add a new product and assign prices
 
 Requires:
 ---------
