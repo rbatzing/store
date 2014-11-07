@@ -10,3 +10,11 @@ typedef struct product
 	char desc[DESCLEN];
 	float price;
 } Product;
+
+typedef struct salesItem
+{
+	Product *prod;
+	int quantity;
+} SalesItem;
+
+

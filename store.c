@@ -76,7 +76,47 @@ int addProd()
 }
 
 int checkout()
-{
+{	
+	int i;
+	SalesItem invoice[20];
+	int numItem = 0;
+	
+	char buffer[20];
+	do {
+		printf("Enter code or [ENTER] to end :");
+		gets(buffer);
+		if (strlen(buffer) > 0)
+		{
+			i =0;
+			while (i < numProd)
+			{
+				puts(strcat(p[i].code,"|"));
+				if (strcmp(buffer, p[i].code) == 0)
+				{
+					invoice[numItem].prod = &p[i];
+					printf("How many? (0 to Cancel): ");
+					scanf("%d", &invoice[numItem].quantity);
+					
+					if (invoice[numItem].quantity > 0)
+						numItem++;
+						
+					break;
+				}
+				i++;
+			}
+			
+			if (i == numProd)
+				printf(">>>> Product %s not found\n",buffer);			
+					
+		}	
+	} while (strlen(buffer) > 0);
+	
+	printf("\n **** Invoice : %d item(s) ****\n\n");
+	for (i = 0; i < numItem; i++)
+		printf("%13s %-20s %3d @ %8.2f %10.2f\n",
+			(*invoice[i].prod).code, invoice[i].quantity, 
+			(*invoice[i].prod).price, 
+			invoice[i].quantity * ((*invoice[i].prod).price));
    return(1);
 }
 
@@ -133,10 +173,10 @@ int searchProd()
    return(1);
 }
 
-void drawline()
+void drawline(int num)
 {
 	int i;
-	for (i=0; i< 48; i++ )
+	for (i=0; i< num; i++ )
 	   putchar('+');
 	printf("\n");
 }
@@ -148,11 +188,11 @@ int displayProd()
 	printf("\nNum of Products: %d\n\n", numProd);
 	puts("Num  Product code       Description       Price");
 
-    drawline();
+    drawline(48);
     for(i = 0; i < numProd; i++)
 	    printf("%3d %13s %-20s %8.2f\n", 
 			i+1, p[i].code, p[i].desc, p[i].price);
-	drawline();
+	drawline(48);
 	return(1);
 }
 			
