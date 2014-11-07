@@ -11,6 +11,7 @@ A mini store application
 This program has these functions:
 
 * **readProd()** Read in the products in the inventory from a file
+* **writeProd()** Write the products in the inventory to a file
 * **checkout()** Select products for sale and create the bill
 * **editProd()** Edit the inventory list  
      - **updateProd()** Update the description and prices of a product  
