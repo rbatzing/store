@@ -3,8 +3,6 @@
 #include <string.h>
 #include "store.h"
 
-
-
 Product p[20];
 
 int numProd = 0;
