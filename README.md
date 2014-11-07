@@ -13,8 +13,8 @@ This program has these functions:
 * **readProd()** Read in the products in the inventory from a file
 * **writeProd()** Write the products in the inventory to a file
 * **checkout()** Select products for sale and create the bill
-* **search()** Search for a product and display the information
-* **display()** Display the full inventory
+* **searchProd()** Search for a product and display the information
+* **displayProd()** Display the full inventory
 * **editProd()** Edit the inventory list  
      - **updateProd()** Update the description and prices of a product  
      - **deleteProd()** Remove a product  
