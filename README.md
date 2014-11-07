@@ -1,12 +1,13 @@
 ![OITCS](http://info.payap.ac.th/info/link_download/identity.jpg)
 
-# store.exe
+store.exe
 =====
 
 Description:
 ------------
 
-A mini store application
+A simple mini store application that uses a bar code reader to maintain and look up 
+information about specific items in an inventory.
 
 This program has these functions:
 
