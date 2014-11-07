@@ -11,16 +11,32 @@ int readInv()
 {
 	FILE * fp;
 	char c;
+	char buffer[35];
 	
 	numProd = 0;
     fp = fopen ("sample.dat", "r");
     while (!feof(fp))
     {
-        
-		fscanf(fp, "%s %s %f", p[numProd].code,
-			p[numProd].desc,&p[numProd].price);
+        /* Read in the product code */
+		fscanf(fp, "%s" ,p[numProd].code);
+		
 		if (strlen(p[numProd].code) > 1)
-		   numProd++;
+		{
+			p[numProd].desc[0] = '\0';
+			/* Read in the multi word description */
+		
+			do 
+			{
+				fscanf(fp, "%s" ,buffer);
+				if ((strlen(buffer) == 1) && (buffer[0] == '@'))
+					break;
+				strcat(p[numProd].desc,buffer);
+				strcat(p[numProd].desc," ");
+			} while ((strlen(buffer) > 0) && (buffer[0] != '@'));
+			
+			fscanf(fp, "%f",&p[numProd].price);
+			numProd++;
+		}
     }
    fclose(fp);
 
@@ -32,11 +48,16 @@ int writeInv()
 {
     FILE * fp;
 	int i;
-    fp = fopen("sample.dat","a");
-    for(i=0; i < numProd; i++)
-		fprintf(fp,"%s; &s; %.2f\n", p[i].code, p[i].desc, p[i].price );
-	fclose(fp); 
-	return(1);
+	
+	if(rename("sample.dat","sample.bak") == 0)
+    {
+		fp = fopen("sample.dat","w");
+		for(i=0; i < numProd; i++)
+			fprintf(fp,"%s &s @ %.2f\n", p[i].code, p[i].desc, p[i].price);
+		fclose(fp);
+		
+		return(1);
+	}
 }
 
 /** Select products for sale and create the bill */
@@ -51,13 +72,14 @@ int display()
 {
     int i;
 	char line[] = "-------------------------------------------------";
-	printf("NUM  Product Code   Description             Price\n");
+	printf("Num of Products: %d\n\n", numProd);
+	printf("\nNum  Product Code   Description             Price\n");
 	puts(line);
 	for(i = 0; i < numProd; i++)
 	    printf("%3d  %13s  %-20s %8.2f\n", i+1, 
 			p[i].code, p[i].desc, p[i].price);
-	printf("Num of Products: %d\n", numProd);
 	puts(line);
+	return(1);
 }
 
 /** editProd: Edit the inventory list */
@@ -88,7 +110,6 @@ int editProd()
 		
 		default:
 			printf(">>>> Unknown command: %c\n", c);
-			c = getchar();
 	   }
     } while ((c != 'Q') && (c != 'q'));
 	return(1);
@@ -127,7 +148,7 @@ int main()
 	
 	/* Welcome */
 	numProd = readInv();
-    printf("WELCOME TO CS110 MINI STORE\n");
+    printf("\nWELCOME TO CS110 MINI STORE\n");
 	printf("Selling %d product(s)\n\n", numProd);
 	
 	/* Work loop */
@@ -141,13 +162,13 @@ int main()
 		switch(c)
 		{
 		case 'A':
-		case 'a': editProd(); getchar(); putchar('\r'); break;
+		case 'a': getchar(); editProd(); putchar('\r'); break;
 				  
 		case 'S':
-		case 's': checkout(); getchar(); putchar('\r'); break;
+		case 's': getchar(); checkout(); putchar('\r'); break;
 		  
 		case 'D':
-		case 'd': display(); getchar(); putchar('\r'); break;
+		case 'd': getchar(); display(); putchar('\r'); break;
 
 		case 'Q':
 		case 'q': getchar();
