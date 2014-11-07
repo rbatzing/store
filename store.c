@@ -3,14 +3,16 @@
 #include <string.h>
 #include "store.h"
 
-Product p[20];
+#define MAXPROD 30
+#
+Product p[MAXPROD];
 
 int numProd = 0;
 
 int readProd()
 {
 	FILE * fp;
-	char buffer[20];
+	char buffer[DESCLEN];
 	
 	numProd = 0;
     fp = fopen ("sample.dat", "r");
@@ -49,22 +51,28 @@ int writeProd()
 	
     fp = fopen("sample.dat","a");
 	for (i=0; i < numProd; i++)
-		fprintf(fp,"%s %s @ %.2f\n",p[i].code, p[i].desc, p[i].price );
+		fprintf(fp,"%s %s @ %.2f\n",p[i].code, p[i].desc, p[i].price);
 	fclose(fp);
     return(-1);
 }
 
 int addProd()
-{  Product x;
-   
-    printf("Scan barcode:");
-    scanf("%s", x.code);
-	printf("Enter description:");
-    scanf("%s",x.desc);
-    printf("Enter price:");
-    scanf("%f",&x.price);
-	getchar();
-	return(1);
+{ 
+    if (numProd < MAXPROD)
+	{
+		printf("Scan barcode:");
+		gets(p[numProd].code);
+	
+		printf("Enter description:");
+		gets(p[numProd].desc);
+		
+		printf("Enter price:");
+		scanf("%f",&p[numProd].price);
+		numProd++;
+		getchar();
+		return(TRUE);
+	}
+	return(FALSE);
 }
 
 int checkout()
@@ -75,10 +83,9 @@ int checkout()
 
 int editProd()
 {
-	int i;
 	char c;
+	int chg = FALSE;
 	
-	numProd = readProd();
 	do 
 	{
 	   printf("Product Menu: [A]dd [D]elete [U]pdate [Q]uit (Please Choose):");
@@ -87,7 +94,7 @@ int editProd()
 	   switch(c)
 	   {
 	   case 'A':
-	   case 'a': getchar(); addProd(); break;
+	   case 'a': getchar(); chg = addProd(); break;
 		
 	   case 'D':
 	   case 'd': getchar(); deleteProd(); break;
@@ -100,10 +107,13 @@ int editProd()
 	   case '\n': break;
 	   
 	   default: getchar();
-	        printf("\nUnknown command: %c\n\n", c);
+	        printf("\n>>>> Unknown command: %c\n\n", c);
 	   
 	   }
     } while ((c != 'Q') && (c != 'q'));
+	
+	if (chg)
+		writeProd();
 
    return(1);
 }
@@ -134,15 +144,14 @@ void drawline()
 int displayProd()
 {
 	int i;
-    char line[] = "================================================";
-	
+
 	printf("\nNum of Products: %d\n\n", numProd);
 	puts("Num  Product code       Description       Price");
 
     drawline();
     for(i = 0; i < numProd; i++)
 	    printf("%3d %13s %-20s %8.2f\n", 
-			i+1, p[i].code,p[i].desc,p[i].price);
+			i+1, p[i].code, p[i].desc, p[i].price);
 	drawline();
 	return(1);
 }
@@ -179,7 +188,7 @@ int main()
 	   case '\n': break;
 
 	   default: getchar();
-	            printf("\nUnknown command: %c\n\n", c);
+	            printf("\n>>>> Unknown command: %c\n\n", c);
 	   }
     } while ((c != 'Q') && (c != 'q'));
 

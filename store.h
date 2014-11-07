@@ -1,6 +1,12 @@
+#define CODELEN 15
+#define DESCLEN 35
+
+#define TRUE 1
+#define FALSE 0
+
 typedef struct product
 {
-	char code[15];
-	char desc[35];
+	char code[CODELEN];
+	char desc[DESCLEN];
 	float price;
 } Product;
