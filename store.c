@@ -99,6 +99,9 @@ int editProd()
 	   case 'q': getchar();
 	   case '\n': break;
 	   
+	   default: getchar();
+	        printf("\nUnknown command: %c\n\n", c);
+	   
 	   }
     } while ((c != 'Q') && (c != 'q'));
 
