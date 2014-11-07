@@ -75,11 +75,20 @@ int addProd()
 	return(FALSE);
 }
 
+void drawLine(char c,int num)
+{
+	int i;
+	for (i=0; i< num; i++ )
+	   putchar(c);
+	printf("\n");
+}
+
 int checkout()
 {	
 	int i;
 	SalesItem invoice[20];
 	int numItem = 0;
+	float cost,totalCost;
 	
 	char buffer[20];
 	do {
@@ -90,13 +99,12 @@ int checkout()
 			i =0;
 			while (i < numProd)
 			{
-				puts(strcat(p[i].code,"|"));
 				if (strcmp(buffer, p[i].code) == 0)
 				{
 					invoice[numItem].prod = &p[i];
 					printf("How many? (0 to Cancel): ");
 					scanf("%d", &invoice[numItem].quantity);
-					
+					getchar();
 					if (invoice[numItem].quantity > 0)
 						numItem++;
 						
@@ -111,12 +119,24 @@ int checkout()
 		}	
 	} while (strlen(buffer) > 0);
 	
-	printf("\n **** Invoice : %d item(s) ****\n\n");
+	totalCost = 0;
+	printf("\n%-30s **** Invoice : %d item(s) ****\n\n",
+		"PYU CS110 MiniStore",numItem);
+	drawLine('=',60);
+	printf("%-13s %-20s %-3s @ %8s %10s\n",
+		"Product code","Description","Qty","Price", "Cost");
+	drawLine('-',60);
 	for (i = 0; i < numItem; i++)
+	{
+		cost = invoice[i].quantity * ((*invoice[i].prod).price);
 		printf("%13s %-20s %3d @ %8.2f %10.2f\n",
-			(*invoice[i].prod).code, invoice[i].quantity, 
-			(*invoice[i].prod).price, 
-			invoice[i].quantity * ((*invoice[i].prod).price));
+			(*invoice[i].prod).code, (*invoice[i].prod).desc,
+			invoice[i].quantity, (*invoice[i].prod).price, 
+			cost);
+		totalCost += cost;
+	}
+	drawLine('=',60);
+	printf(" %45s:   %10.2f\n\n","Total cost",totalCost);
    return(1);
 }
 
@@ -173,26 +193,20 @@ int searchProd()
    return(1);
 }
 
-void drawline(int num)
-{
-	int i;
-	for (i=0; i< num; i++ )
-	   putchar('+');
-	printf("\n");
-}
 
 int displayProd()
 {
 	int i;
 
-	printf("\nNum of Products: %d\n\n", numProd);
+	printf("\nNum of Products: %d\n", numProd);
+	drawLine('=',48);
 	puts("Num  Product code       Description       Price");
 
-    drawline(48);
+    drawLine('-',48);
     for(i = 0; i < numProd; i++)
 	    printf("%3d %13s %-20s %8.2f\n", 
 			i+1, p[i].code, p[i].desc, p[i].price);
-	drawline(48);
+	drawLine('=',48);
 	return(1);
 }
 			
