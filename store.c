@@ -255,8 +255,8 @@ int main()
 	   case 'D':
 	   case 'd': getchar(); displayProd(); break;
 	     
-       case 'S':
-		case 's': getchar(); searchProd(); break;
+       	   case 'S':
+	   case 's': getchar(); searchProd(); break;
 			
 	   case 'C':
 	   case 'c': getchar(); checkout(); break;
