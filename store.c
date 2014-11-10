@@ -185,7 +185,16 @@ int updateProd()
 
 int deleteProd()
 {
-   return(1);
+   char searchbuf[20];
+   int i;
+   
+   
+   scanf("%s",searchbuf )
+   for (i= 0; i < numProd; i++)
+     if (strcmp(searchbuf, p[i].code) == 0)
+        printf("found it");
+        
+    return(1);
 }
 
 int searchProd()
