@@ -189,7 +189,7 @@ int deleteProd()
    int i;
    
    
-   scanf("%s",searchbuf )
+   scanf("%s",searchbuf );
    for (i= 0; i < numProd; i++)
      if (strcmp(searchbuf, p[i].code) == 0)
         printf("found it");
@@ -211,7 +211,7 @@ int searchProd()
           	{
           		printf("\ncode:\t %-13s\ndesc:\t %-35s\nprice:\t %8.2f\n\n",
           			p[i].code, p[i].desc, p[i].price);
-          		return();
+          		return(1);
           	}
         printf("\n>>>>Product not found\n");  
     	return(1);
