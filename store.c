@@ -185,16 +185,31 @@ int updateProd()
 
 int deleteProd()
 {
-   char searchbuf[20];
    int i;
+   char c;
    
    
-   scanf("%s",searchbuf );
-   for (i= 0; i < numProd; i++)
-     if (strcmp(searchbuf, p[i].code) == 0)
-        printf("found it");
-        
-    return(1);
+   i= searchProd();
+   if (i == numProd)
+   return(0);
+   if (strcmp(searchbuf, p[i].code) == 0)
+       printf("found it");
+   printf("Are you sure?");
+   pirntf("[Y/N]");
+   c=getchar();
+   getchar();
+   if((c=='Y')||(c=='y'))
+   {
+   	while(i < numProd)
+   {
+ 		strcpy(p[i].code,p[i+1].code);
+		strcpy(p[i].desc,p[i+1].desc);
+		p[i].price = p[i+1].price;
+		i++;
+   }
+   	numProd --;
+   }
+   return(1);
 }
 
 int searchProd()
@@ -211,10 +226,10 @@ int searchProd()
           	{
           		printf("\ncode:\t %-13s\ndesc:\t %-35s\nprice:\t %8.2f\n\n",
           			p[i].code, p[i].desc, p[i].price);
-          		return(1);
+          		return(i);
           	}
         printf("\n>>>>Product not found\n");  
-    	return(1);
+    	return(i);
 }
 
 
