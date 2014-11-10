@@ -193,7 +193,7 @@ int deleteProd()
    if (i == numProd)
    return(0);
    printf("Are you sure?");
-   pirntf("[Y/N]");
+   printf("[Y/N]");
    c=getchar();
    getchar();
    if((c=='Y')||(c=='y'))
