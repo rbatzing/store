@@ -192,8 +192,6 @@ int deleteProd()
    i= searchProd();
    if (i == numProd)
    return(0);
-   if (strcmp(searchbuf, p[i].code) == 0)
-       printf("found it");
    printf("Are you sure?");
    pirntf("[Y/N]");
    c=getchar();
