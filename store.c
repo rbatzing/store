@@ -189,9 +189,39 @@ int deleteProd()
 }
 
 int searchProd()
-{
-   return(1);
-}
+    {
+        FILE *fp;
+        char sear[20];
+        char In_stock[20];
+        int i;
+        numProd = 0;
+
+        fp = fopen ("sample.dat", "r");
+
+        printf("\nEnter Product's names\n\t : ");
+        gets(sear);
+
+         while (!feof(fp))
+    {
+        fscanf(fp, "%s", p[numProd].code);
+        do
+        {
+            fscanf(fp, "%s", In_stock);
+            if(strcmp(sear,In_stock) == 0)
+            {
+                printf("Product found...\n\n");
+                for (i=0; i < numProd; i++)
+                fprintf(fp,"%s %s @ %.2f\n",p[i].code, p[i].desc, p[i].price );
+            }
+        }
+        while (strcmp(sear,In_stock) == 0);
+            fscanf(fp, "%f", &p[numProd].price);
+            if (strcmp(sear,In_stock) == 0)
+            numProd++;
+    }
+    fclose(fp);
+    return(1);
+    }
 
 
 int displayProd()
